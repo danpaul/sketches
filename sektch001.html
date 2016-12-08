@@ -1,0 +1,142 @@
+<html>
+<head>
+  <script src="./processing.js"></script>
+</head>
+<body>
+
+<canvas id="canvas1" width="800" height="800"></canvas>
+
+<script id="script1" type="text/javascript">
+
+/**
+ * Returns a random integer between min (inclusive) and max (inclusive)
+ * Using Math.round() will give you a non-uniform distribution!
+ */
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Simple way to attach js code to the canvas is by using a function
+function sketchProc(processing) {
+    var width = 800;
+    var height = 800;
+
+    processing.size(width, height);
+    processing.background(255, 255, 255);
+
+    var times = 0;
+    var times2 = 0;
+    var x = null;
+    var y = null;
+    var x2 = null;
+    var y2 = null;
+
+var variant = 10;
+
+    // Override draw function, by default it will be called 60 times per second
+    processing.draw = function() {
+
+        if( times === 0 ){
+            x = getRandomInt(0, width);
+            y = getRandomInt(0, height);
+        }
+        times++;
+        if( times === 200 ){
+            times = 0;            
+        }
+        
+        if( times2 === 0 ){
+            x2 = getRandomInt(0, width);
+            y2 = getRandomInt(0, height);
+        }
+        times2++;
+        if( times2 === 20 ){
+            times2 = 0;
+        }
+
+        // if( times === 0 ){
+            processing.stroke(0, 0, 0, getRandomInt(0, 20));
+        // } else {
+            //  processing.stroke(255, 255, 255, getRandomInt(0, 80));
+        // }
+
+        
+
+        // processing.line(getRandomInt(0, width),
+        //                 getRandomInt(0, height), 
+        //                 getRandomInt(0, width),
+        //                 getRandomInt(0, height));
+
+
+        // processing.line(width/2,
+        //                 height/2, 
+        //                 getRandomInt(0, width),
+        //                 getRandomInt(0, height));
+
+
+
+        // processing.line(getRandomInt(width/2 - 200, width/2 + 200),
+        //                 getRandomInt(height/2 - 200, height/2 + 200),
+        //                 getRandomInt(0, width),
+        //                 getRandomInt(0, height));
+
+
+        // processing.line(getRandomInt(width/2 - 200, width/2 + 200),
+        //                 getRandomInt(height/2 - 200, height/2 + 200),
+        //                 getRandomInt(width/2 - 400, width/2 + 400),
+        //                 getRandomInt(height/2 - 400, height/2 + 400));
+
+
+        processing.line(x,
+                        y,
+                        getRandomInt(x2 - variant, x2+variant),
+                        getRandomInt(y2 - variant, y2+variant));
+
+
+// console.log('asdf')
+
+        // processing.line(centerX, centerY, 
+        // centerX + Math.sin(position * 2 * Math.PI) * lengthScale * maxArmLength,
+        // centerY - Math.cos(position * 2 * Math.PI) * lengthScale * maxArmLength);
+
+    // // determine center and max clock arm length
+    // var centerX = processing.width / 2, centerY = processing.height / 2;
+    // var maxArmLength = Math.min(centerX, centerY);
+
+    // function drawArm(position, lengthScale, weight) {      
+    //   processing.strokeWeight(weight);
+    //   processing.line(centerX, centerY, 
+    //     centerX + Math.sin(position * 2 * Math.PI) * lengthScale * maxArmLength,
+    //     centerY - Math.cos(position * 2 * Math.PI) * lengthScale * maxArmLength);
+    // }
+
+    // // erase background
+    // processing.background(224);
+
+    var now = new Date();
+
+    // // Moving hours arm by small increments
+    // var hoursPosition = (now.getHours() % 12 + now.getMinutes() / 60) / 12;
+    // drawArm(hoursPosition, 0.5, 5);
+
+    // // Moving minutes arm by small increments
+    // var minutesPosition = (now.getMinutes() + now.getSeconds() / 60) / 60;
+    // drawArm(minutesPosition, 0.80, 3);
+
+    // // Moving hour arm by second increments
+//     var secondsPosition = now.getSeconds() / 60;
+
+// console.log(secondsPosition);
+
+    // drawArm(secondsPosition, 0.90, 1);
+
+    };  
+}
+
+var canvas = document.getElementById("canvas1");
+// attaching the sketchProc function to the canvas
+var p = new Processing(canvas, sketchProc);
+// p.exit(); to detach it
+</script>
+</body>
+</html>
